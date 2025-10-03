@@ -13,7 +13,6 @@
         rel="stylesheet">
 
     <style>
-        /* ====== DESIGN TOKENS ====== */
         :root {
             /* dark (default) */
             --bg: #0b0d10;
@@ -27,21 +26,9 @@
             --print-muted: #444;
             --print-border: #ddd;
             --shadow: 0 6px 18px rgba(0, 0, 0, .25);
-
-            /* fluid typography & spacing */
-            --fs-xs: clamp(12px, 0.7vw + 9px, 13px);
-            --fs-sm: clamp(13px, 0.8vw + 9px, 14px);
-            --fs-md: clamp(14px, 1vw + 10px, 16px);
-            --fs-lg: clamp(18px, 1.5vw + 10px, 22px);
-            --fs-xl: clamp(24px, 2.2vw + 12px, 34px);
-
-            --radius: 16px;
-            --gap: clamp(12px, 2vw, 24px);
-            --pad: clamp(12px, 2.2vw, 24px);
-            --tap: 44px;
-            /* minimum tap target size */
         }
 
+        /* light */
         [data-theme="light"] {
             --bg: #ffffff;
             --card: #f7f8fa;
@@ -53,7 +40,6 @@
             --shadow: 0 6px 18px rgba(0, 0, 0, .08);
         }
 
-        /* ====== BASE ====== */
         * {
             box-sizing: border-box
         }
@@ -62,24 +48,12 @@
             scroll-behavior: smooth
         }
 
-        @media (prefers-reduced-motion: reduce) {
-            html {
-                scroll-behavior: auto
-            }
-
-            * {
-                animation: none !important;
-                transition: none !important
-            }
-        }
-
         body {
             margin: 0;
             font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial;
             background: var(--bg);
             color: var(--text);
-            line-height: 1.6;
-            font-size: var(--fs-md);
+            line-height: 1.6
         }
 
         a {
@@ -91,19 +65,12 @@
             text-decoration: underline
         }
 
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block
-        }
-
         .container {
-            max-width: min(1000px, 92vw);
+            max-width: 1000px;
             margin: 0 auto;
-            padding: var(--pad)
+            padding: 24px
         }
 
-        /* ====== HEADER / NAV ====== */
         header {
             position: sticky;
             top: 0;
@@ -138,37 +105,31 @@
 
         .name {
             font-weight: 700;
-            font-size: var(--fs-lg)
+            font-size: 18px
         }
 
         .links {
             display: flex;
-            gap: 10px;
+            gap: 14px;
             flex-wrap: wrap;
             align-items: center
         }
 
-        .pill,
-        .theme-btn,
-        .btn {
-            min-height: var(--tap)
-        }
-
         .pill {
             border: 1px solid var(--border);
-            padding: 6px 12px;
+            padding: 6px 10px;
             border-radius: 999px;
             color: var(--muted);
-            font-size: var(--fs-sm)
+            font-size: 13px
         }
 
         .theme-btn {
             border: 1px solid var(--border);
             background: transparent;
-            padding: 6px 12px;
+            padding: 6px 10px;
             border-radius: 999px;
             color: var(--muted);
-            font-size: var(--fs-sm);
+            font-size: 13px;
             cursor: pointer
         }
 
@@ -176,25 +137,12 @@
             background: color-mix(in oklab, var(--card) 70%, var(--bg))
         }
 
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            border: 1px solid var(--border);
-            background: color-mix(in oklab, var(--bg), var(--card) 30%);
-            padding: 8px 12px;
-            border-radius: 10px;
-            color: var(--text);
-            font-size: var(--fs-sm)
+        main {
+            padding-top: 18px
         }
 
-        .btn:hover {
-            background: color-mix(in oklab, var(--bg), var(--card) 50%)
-        }
-
-        /* ====== TYPO / SECTIONS ====== */
         section {
-            padding: clamp(20px, 4vw, 32px) 0;
+            padding: 28px 0;
             border-bottom: 1px solid var(--border)
         }
 
@@ -206,19 +154,52 @@
         }
 
         h1 {
-            font-size: var(--fs-xl)
+            font-size: 34px
         }
 
         h2 {
-            font-size: var(--fs-lg)
+            font-size: 22px
         }
 
         h3 {
-            font-size: clamp(16px, 1.2vw + 12px, 18px)
+            font-size: 18px
         }
 
         p {
             margin: 0 0 10px
+        }
+
+        .grid {
+            display: grid;
+            gap: 16px
+        }
+
+        .two {
+            grid-template-columns: repeat(2, minmax(0, 1fr))
+        }
+
+        .three {
+            grid-template-columns: repeat(3, minmax(0, 1fr))
+        }
+
+        @media (max-width:900px) {
+
+            .two,
+            .three {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: var(--shadow)
+        }
+
+        .card:hover {
+            border-color: color-mix(in oklab, var(--border), var(--brand) 30%)
         }
 
         .muted {
@@ -229,47 +210,12 @@
             letter-spacing: .1em;
             text-transform: uppercase;
             font-weight: 700;
-            font-size: var(--fs-xs);
+            font-size: 12px;
             color: var(--accent)
         }
 
         .nowrap {
             white-space: nowrap
-        }
-
-        /* ====== CARDS & GRID ====== */
-        .card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 16px;
-            box-shadow: var(--shadow)
-        }
-
-        .card:hover {
-            border-color: color-mix(in oklab, var(--border), var(--brand) 30%)
-        }
-
-        .grid {
-            display: grid;
-            gap: var(--gap)
-        }
-
-        /* Responsive breakpoints: 3 cols desktop, 2 cols tablet, 1 col mobile */
-        .grid.auto-cols {
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-        }
-
-        @media (max-width: 1024px) {
-            .grid.auto-cols {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-        }
-
-        @media (max-width: 640px) {
-            .grid.auto-cols {
-                grid-template-columns: 1fr;
-            }
         }
 
         .row {
@@ -279,8 +225,23 @@
             flex-wrap: wrap
         }
 
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--border);
+            background: color-mix(in oklab, var(--bg), var(--card) 30%);
+            padding: 8px 12px;
+            border-radius: 10px;
+            color: var(--text)
+        }
+
+        .btn:hover {
+            background: color-mix(in oklab, var(--bg), var(--card) 50%)
+        }
+
         .tag {
-            font-size: var(--fs-xs);
+            font-size: 12px;
             color: var(--muted);
             border: 1px solid var(--border);
             padding: 2px 8px;
@@ -302,10 +263,10 @@
         .footer {
             padding: 20px 0;
             color: var(--muted);
-            font-size: var(--fs-sm)
+            font-size: 13px
         }
 
-        /* ====== Videos ====== */
+        /* Videos */
         .video-wrap {
             position: relative;
             width: 100%;
@@ -324,12 +285,7 @@
             object-fit: contain
         }
 
-        video {
-            display: block;
-            width: 100%
-        }
-
-        /* ====== Travel gallery ====== */
+        /* Travel gallery */
         .gallery {
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -338,7 +294,7 @@
 
         .gallery img {
             width: 100%;
-            height: clamp(140px, 18vw, 180px);
+            height: 180px;
             object-fit: cover;
             border-radius: 12px;
             border: 1px solid var(--border);
@@ -351,19 +307,16 @@
             outline-offset: 2px
         }
 
-        @media (max-width:1024px) {
-            .gallery {
-                grid-template-columns: repeat(3, minmax(0, 1fr))
-            }
-        }
-
-        @media (max-width:640px) {
+        @media (max-width:900px) {
             .gallery {
                 grid-template-columns: repeat(2, minmax(0, 1fr))
             }
+
+            .gallery img {
+                height: 150px
+            }
         }
 
-        /* ====== Print ====== */
         @media print {
             body {
                 background: #fff;
@@ -469,7 +422,9 @@
                 <a class="btn" href="https://github.com/Laxminarayen">🐙 GitHub</a>
                 <a class="btn" href="cv.pdf">📄 Short CV</a>
             </div>
-            <p class="muted" style="margin-top:10px">Bengaluru, India · +91 95438 53644</p>
+            <p class="muted" style="margin-top:10px">
+                Bengaluru, India · +91 95438 53644
+            </p>
         </section>
 
         <!-- PROJECTS -->
@@ -478,10 +433,10 @@
             <h2>Selected Projects</h2>
             <p class="muted">Representative work and prototypes (generic descriptions to preserve double-blind review).
             </p>
-            <div class="grid auto-cols" id="project-grid"></div>
+            <div class="grid two" id="project-grid"></div>
         </section>
 
-        <!-- PUBLICATIONS -->
+        <!-- PUBLICATIONS (kept anonymous during review) -->
         <section id="publications">
             <span class="kicker">Publications</span>
             <h2>Papers & Preprints</h2>
@@ -499,13 +454,15 @@
             <article class="card">
                 <h3>AMLD @ EPFL — Workshop Organizer</h3>
                 <p class="muted">
-                    <strong>Laxmi Narayen Nagarajan Venkatesan</strong> helped organize the workshop:
+                    <strong>Laxmi Narayen Nagarajan Venkatesan</strong> Organized the workshop:
                     <em>“Multimodal Machine Learning for Human Behaviour Understanding”</em> at Applied Machine Learning
                     Days (EPFL).
                 </p>
                 <div class="row" style="margin-top:8px">
-                    <a class="btn" href="https://github.com/Laxminarayen?tab=repositories">Workshop materials →</a>
+                    <a class="btn" href="https://github.com/Laxminarayen/AMLD-24">Workshop materials →</a>
                 </div>
+
+                <!-- Photo gallery mount point -->
                 <div class="gallery" id="gallery-amld24" style="margin-top:14px"></div>
             </article>
         </section>
@@ -515,14 +472,17 @@
             <span class="kicker">Outputs</span>
             <h2>Research Demos</h2>
             <p class="muted">Prototype videos from ongoing research (no paper titles shown).</p>
-            <div class="grid auto-cols" id="outputs-grid"></div>
+            <div class="grid two" id="outputs-grid"></div>
         </section>
 
         <!-- CONTACT -->
         <section id="contact">
             <span class="kicker">Contact</span>
             <h2>Get in touch</h2>
-            <p>Email: <a href="mailto:nvlnarayen@gmail.com">nvlnarayen@gmail.com</a> • Location: Bengaluru, India</p>
+            <p>
+                Email: <a href="mailto:nvlnarayen@gmail.com">nvlnarayen@gmail.com</a> •
+                Location: Bengaluru, India
+            </p>
         </section>
 
         <footer class="footer">
@@ -534,7 +494,7 @@
     </main>
 
     <script>
-        /* ===== THEME (system-aware + toggle, persisted) ===== */
+        // ======= THEME =======
         (function themeBoot() {
             const saved = localStorage.getItem('theme');
             const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -554,14 +514,14 @@
             function updateThemeIcon(mode) { const b = document.getElementById('theme-toggle'); if (b) b.textContent = mode === 'dark' ? '🌙' : '☀️'; }
         })();
 
-        /* ===== DATA ===== */
+        // ======= DATA =======
         const PROJECTS = [
             { title: "Multimodal Avatar Prototype", blurb: "Audio-conditioned face animation with identity-preserving controls and robust lip-sync.", repo: "", demo: "", tags: ["Multimodal", "Avatars", "Audio-driven"] },
             { title: "Real-time Emotion Control", blurb: "Latency-aware control pipeline enabling expressive 3D animation at interactive rates.", repo: "", demo: "", tags: ["3D", "Real-time", "Emotion"] },
             { title: "Evaluation & Tooling", blurb: "Lightweight toolkit for dataset prep, batch evals, and side-by-side qualitative reviews.", repo: "", demo: "", tags: ["Tooling", "Evaluation"] }
         ];
 
-        /* Your two publications (name bolded) */
+        // ✅ PUBLICATIONS (your two entries) — keep ONLY this definition in the file
         const PUBLICATIONS = [
             {
                 year: "2023",
@@ -570,12 +530,12 @@
                 venue: "IEEE International Conference on Artificial Intelligence & Virtual Reality (AIVR 2022)",
                 links: { doi: "https://doi.org/10.1109/AIVR56993.2022.00013" },
                 bibtex: `@inproceedings{venkatesan2022meca,
-  author = {Laxmi Narayen Nagarajan Venkatesan and Kumar Shubham and Dinesh Babu Jayagopi and Raj Tumuluri},
-  title = {Multimodal Embodied Conversational Agents: A discussion of architectures, frameworks and modules for commercial applications},
-  booktitle = {IEEE International Conference on Artificial Intelligence & Virtual Reality (AIVR)},
-  year = {2022},
-  doi = {10.1109/AIVR56993.2022.00013}
-}`
+        author = {Laxmi Narayen Nagarajan Venkatesan and Kumar Shubham and Dinesh Babu Jayagopi and Raj Tumuluri},
+        title = {Multimodal Embodied Conversational Agents: A discussion of architectures, frameworks and modules for commercial applications},
+        booktitle = {IEEE International Conference on Artificial Intelligence & Virtual Reality (AIVR)},
+        year = {2022},
+        doi = {10.1109/AIVR56993.2022.00013}
+      }`
             },
             {
                 year: "2025",
@@ -584,16 +544,16 @@
                 venue: "AAAI/ACM Conference on AI, Ethics, and Society (AIES 2025)",
                 links: { doi: "https://doi.org/10.48550/arXiv.2508.16673", pdf: "https://arxiv.org/pdf/2508.16673" },
                 bibtex: `@inproceedings{rao2025invisible,
-  author = {Pooja SB Rao and Laxmi Narayen Nagarajan Venkatesan and Mauro Cherubini and Dinesh Babu Jayagopi},
-  title = {Invisible Filters: Cultural Bias in Hiring Evaluations Using Large Language Models},
-  booktitle = {Proceedings of the AAAI/ACM Conference on AI, Ethics, and Society (AIES)},
-  year = {2025},
-  doi = {10.48550/arXiv.2508.16673}
-}`
+        author = {Pooja SB Rao and Laxmi Narayen Nagarajan Venkatesan and Mauro Cherubini and Dinesh Babu Jayagopi},
+        title = {Invisible Filters: Cultural Bias in Hiring Evaluations Using Large Language Models},
+        booktitle = {Proceedings of the AAAI/ACM Conference on AI, Ethics, and Society (AIES)},
+        year = {2025},
+        doi = {10.48550/arXiv.2508.16673}
+      }`
             }
         ];
 
-        /* Demos */
+        // Demos
         const OUTPUTS = [
             { kind: "video", title: "Demo 1", src: "demo1.mp4", caption: "Prototype demo 1" },
             { kind: "video", title: "Demo 2", src: "demo2.mp4", caption: "Prototype demo 2" },
@@ -603,12 +563,12 @@
             { kind: "video", title: "Demo 6", src: "demo6.mp4", caption: "Prototype demo 6" }
         ];
 
-        /* Travel gallery — folder spelling exactly as in repo */
+        // Travel gallery
         const TRAVEL_GALLERIES = [
             { id: 'gallery-amld24', title: 'AMLD-24: Switzerland', base: 'AMLD-24_Swizerland/', images: ['pic1.jpeg', 'pic2.jpeg', 'pic3.jpeg', 'pic4.jpeg'] }
         ];
 
-        /* ===== RENDER ===== */
+        // ======= RENDER =======
         function el(tag, cls, html) { const e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; }
 
         function renderProjects() {
@@ -625,8 +585,8 @@
                 const tags = el('div', 'row'); (p.tags || []).forEach(t => tags.appendChild(el('span', 'tag', t)));
                 if ((p.tags || []).length) card.appendChild(tags);
                 if (actions.children.length) card.appendChild(actions);
-                grid.appendChild(card);
-            });
+                grid.appendChild(card));
+        });
         }
 
         function renderPubs() {
@@ -684,7 +644,7 @@
                 const shell = document.createElement('div');
                 shell.className = 'video-wrap';
                 const vid = document.createElement('video');
-                vid.setAttribute('controls', ''); vid.setAttribute('preload', 'metadata'); vid.setAttribute('playsinline', '');
+                vid.setAttribute('controls', ''); vid.setAttribute('preload', 'metadata');
                 vid.innerHTML = `<source src="${o.src}" type="video/mp4">Your browser does not support the video tag.`;
                 shell.appendChild(vid);
                 card.appendChild(shell);
@@ -693,10 +653,14 @@
             });
         }
 
-        /* call order after data is defined */
+        // Call order — define data first, THEN render:
         document.getElementById('year').textContent = new Date().getFullYear();
-        renderProjects(); renderPubs(); renderTravel(); renderOutputs();
+        renderProjects();
+        renderPubs();
+        renderTravel();
+        renderOutputs();
     </script>
+
 </body>
 
 </html>
