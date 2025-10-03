@@ -14,7 +14,7 @@
 
     <style>
         :root {
-            /* dark theme (default) */
+            /* dark (default) */
             --bg: #0b0d10;
             --card: #12161b;
             --muted: #9aa4b2;
@@ -28,7 +28,7 @@
             --shadow: 0 6px 18px rgba(0, 0, 0, .25);
         }
 
-        /* light theme overrides */
+        /* light */
         [data-theme="light"] {
             --bg: #ffffff;
             --card: #f7f8fa;
@@ -50,7 +50,7 @@
 
         body {
             margin: 0;
-            font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+            font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial;
             background: var(--bg);
             color: var(--text);
             line-height: 1.6
@@ -266,7 +266,7 @@
             font-size: 13px
         }
 
-        /* Responsive video sizing for demos */
+        /* Videos */
         .video-wrap {
             position: relative;
             width: 100%;
@@ -359,7 +359,7 @@
         }
     </style>
 
-    <!-- SEO / structured data -->
+    <!-- SEO -->
     <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -427,20 +427,20 @@
             </p>
         </section>
 
-        <!-- PROJECTS (generic, no paper names) -->
+        <!-- PROJECTS -->
         <section id="projects">
             <span class="kicker">Projects</span>
             <h2>Selected Projects</h2>
             <p class="muted">Representative work and prototypes (generic descriptions to preserve double-blind review).
             </p>
-            <div class="grid two" id="project-grid"><!-- injected by JS --></div>
+            <div class="grid two" id="project-grid"></div>
         </section>
 
         <!-- PUBLICATIONS (kept anonymous during review) -->
         <section id="publications">
             <span class="kicker">Publications</span>
             <h2>Papers & Preprints</h2>
-            <div class="list" id="pub-list"><!-- injected by JS --></div>
+            <div class="list" id="pub-list"></div>
             <p class="muted" style="margin-top:10px">
                 Full list on <a href="https://scholar.google.com/citations?user=5EZ4zXYAAAAJ&hl=en">Google Scholar</a>.
             </p>
@@ -452,7 +452,7 @@
             <h2>Conferences & Workshops</h2>
 
             <article class="card">
-                <h3>AMLD @ EPFL 2024 — Workshop Organizer</h3>
+                <h3>AMLD @ EPFL — Workshop Organizer</h3>
                 <p class="muted">
                     <strong>Laxmi Narayen Nagarajan Venkatesan</strong> helped organize the workshop:
                     <em>“Multimodal Machine Learning for Human Behaviour Understanding”</em> at Applied Machine Learning
@@ -462,17 +462,17 @@
                     <a class="btn" href="https://github.com/Laxminarayen?tab=repositories">Workshop materials →</a>
                 </div>
 
-                <!-- Photo gallery -->
+                <!-- Photo gallery mount point -->
                 <div class="gallery" id="gallery-amld24" style="margin-top:14px"></div>
             </article>
         </section>
 
-        <!-- OUTPUTS (your six MP4 demos) -->
+        <!-- OUTPUTS -->
         <section id="outputs">
             <span class="kicker">Outputs</span>
             <h2>Research Demos</h2>
             <p class="muted">Prototype videos from ongoing research (no paper titles shown).</p>
-            <div class="grid two" id="outputs-grid"><!-- injected by JS --></div>
+            <div class="grid two" id="outputs-grid"></div>
         </section>
 
         <!-- CONTACT -->
@@ -494,7 +494,7 @@
     </main>
 
     <script>
-        // ======= THEME HANDLING =======
+        // ======= THEME =======
         (function themeBoot() {
             const saved = localStorage.getItem('theme'); // 'light' | 'dark' | null
             const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -512,37 +512,17 @@
             function updateThemeIcon(mode) { document.getElementById('theme-toggle').textContent = mode === 'dark' ? '🌙' : '☀️'; }
         })();
 
-        // ======= DATA (generic/no paper names) =======
+        // ======= DATA =======
         const PROJECTS = [
-            {
-                title: "Multimodal Avatar Prototype",
-                blurb: "Audio-conditioned face animation with identity-preserving controls and robust lip-sync.",
-                repo: "",   // add when public
-                demo: "",   // add HF Space/site if any
-                tags: ["Multimodal", "Avatars", "Audio-driven"]
-            },
-            {
-                title: "Real-time Emotion Control",
-                blurb: "Latency-aware control pipeline enabling expressive 3D animation at interactive rates.",
-                repo: "",
-                demo: "",
-                tags: ["3D", "Real-time", "Emotion"]
-            },
-            {
-                title: "Evaluation & Tooling",
-                blurb: "Lightweight toolkit for dataset prep, batch evals, and side-by-side qualitative reviews.",
-                repo: "",
-                demo: "",
-                tags: ["Tooling", "Evaluation"]
-            }
+            { title: "Multimodal Avatar Prototype", blurb: "Audio-conditioned face animation with identity-preserving controls and robust lip-sync.", repo: "", demo: "", tags: ["Multimodal", "Avatars", "Audio-driven"] },
+            { title: "Real-time Emotion Control", blurb: "Latency-aware control pipeline enabling expressive 3D animation at interactive rates.", repo: "", demo: "", tags: ["3D", "Real-time", "Emotion"] },
+            { title: "Evaluation & Tooling", blurb: "Lightweight toolkit for dataset prep, batch evals, and side-by-side qualitative reviews.", repo: "", demo: "", tags: ["Tooling", "Evaluation"] }
         ];
 
-        // Keep publications empty for double-blind.
-        const PUBLICATIONS = [
-            // After reviews, add real entries (bold your name in authors with <strong>...your name...</strong>)
-        ];
+        // Keep publications empty for double-blind (fill later with real entries, bold your name in authors).
+        const PUBLICATIONS = [];
 
-        // Your six demo videos (MP4)
+        // Demos
         const OUTPUTS = [
             { kind: "video", title: "Demo 1", src: "demo1.mp4", caption: "Prototype demo 1" },
             { kind: "video", title: "Demo 2", src: "demo2.mp4", caption: "Prototype demo 2" },
@@ -552,19 +532,17 @@
             { kind: "video", title: "Demo 6", src: "demo6.mp4", caption: "Prototype demo 6" }
         ];
 
-        // Travel galleries (AMLD-24 Switzerland). If you renamed the folder to AMLD-24_Switzerland, update base accordingly.
-        // Travel galleries (AMLD-24 Switzerland)
+        // Travel gallery data — NOTE: folder spelling exactly as in repo
         const TRAVEL_GALLERIES = [
             {
                 id: 'gallery-amld24',
-                title: 'AMLD-24_Swizerland',
-                base: 'AMLD-24_Swizerland/',   // corrected folder path
+                title: 'AMLD-24: Switzerland',
+                base: 'AMLD-24_Swizerland/',   // <-- your folder name
                 images: ['pic1.jpeg', 'pic2.jpeg', 'pic3.jpeg', 'pic4.jpeg']
             }
         ];
 
-
-        // ======= RENDER (no framework) =======
+        // ======= RENDER =======
         function el(tag, cls, html) { const e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; }
 
         function renderProjects() {
@@ -578,8 +556,7 @@
                 if (p.demo) actions.appendChild(Object.assign(el('a', 'btn', 'Live Demo ↗'), { href: p.demo }));
                 card.appendChild(header);
                 card.appendChild(el('p', 'muted', p.blurb));
-                const tags = el('div', 'row');
-                (p.tags || []).forEach(t => tags.appendChild(el('span', 'tag', t)));
+                const tags = el('div', 'row'); (p.tags || []).forEach(t => tags.appendChild(el('span', 'tag', t)));
                 if ((p.tags || []).length) card.appendChild(tags);
                 if (actions.children.length) card.appendChild(actions);
                 grid.appendChild(card);
@@ -616,6 +593,24 @@
             });
         }
 
+        function renderTravel() {
+            TRAVEL_GALLERIES.forEach(g => {
+                const mount = document.getElementById(g.id);
+                if (!mount) return;
+                g.images.forEach(name => {
+                    const a = document.createElement('a');
+                    a.href = `${g.base}${name}`;
+                    a.target = "_blank"; a.rel = "noopener";
+                    const img = document.createElement('img');
+                    img.loading = "lazy";
+                    img.alt = `${g.title} – ${name}`;
+                    img.src = `${g.base}${name}`;
+                    a.appendChild(img);
+                    mount.appendChild(a);
+                });
+            });
+        }
+
         function renderOutputs() {
             const grid = document.getElementById('outputs-grid');
             OUTPUTS.forEach(o => {
@@ -624,32 +619,12 @@
                 const shell = document.createElement('div');
                 shell.className = 'video-wrap';
                 const vid = document.createElement('video');
-                vid.setAttribute('controls', '');
-                vid.setAttribute('preload', 'metadata');
+                vid.setAttribute('controls', ''); vid.setAttribute('preload', 'metadata');
                 vid.innerHTML = `<source src="${o.src}" type="video/mp4">Your browser does not support the video tag.`;
                 shell.appendChild(vid);
                 card.appendChild(shell);
                 if (o.caption) card.appendChild(el('p', 'muted', o.caption));
                 grid.appendChild(card);
-            });
-        }
-
-        function renderTravel() {
-            TRAVEL_GALLERIES.forEach(g => {
-                const mount = document.getElementById(g.id);
-                if (!mount) return;
-                g.images.forEach(name => {
-                    const a = document.createElement('a');
-                    a.href = `${g.base}${name}`; // open full-res in new tab
-                    a.target = "_blank";
-                    a.rel = "noopener";
-                    const img = document.createElement('img');
-                    img.loading = "lazy";
-                    img.alt = `${g.title} – ${name}`;
-                    img.src = `${g.base}${name}`;
-                    a.appendChild(img);
-                    mount.appendChild(a);
-                });
             });
         }
 
