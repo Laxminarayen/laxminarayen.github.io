@@ -294,12 +294,20 @@
             white-space: nowrap
         }
 
+        /* Ensure cards/rows create their own stacking context and stay clickable */
         .card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 16px;
-            box-shadow: var(--shadow)
+            position: relative;
+        }
+
+        .btn,
+        .btn * {
+            pointer-events: auto;
+            cursor: pointer;
+        }
+
+        /* Safety: if any overlay ever spans this area, let clicks pass through it */
+        .overlay-blocker {
+            pointer-events: none !important;
         }
 
         .grid {
@@ -555,8 +563,11 @@
                     <em>“Multimodal Machine Learning for Human Behaviour Understanding”</em> at Applied Machine Learning
                     Days (EPFL).
                 </p>
-                <div class="row" style="margin-top:8px">
-                    <a class="btn" href="https://github.com/Laxminarayen/AMLD-24/">Workshop materials →</a>
+                <div class="row" style="margin-top:8px; position:relative; z-index:2">
+                    <a class="btn external" href="https://github.com/Laxminarayen/AMLD-24/" target="_blank"
+                        rel="noopener noreferrer">
+                        Workshop materials →
+                    </a>
                 </div>
                 <div class="gallery" id="gallery-amld24" style="margin-top:14px"></div>
             </article>
