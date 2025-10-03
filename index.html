@@ -126,6 +126,59 @@
             gap: 12px
         }
 
+        .about-hero {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .hero-text {
+            min-width: 260px;
+        }
+
+        /* Big headshot in About — rectangular */
+        .hero-pic {
+            width: clamp(320px, 42vw, 880px);
+            /* gets larger on big screens */
+            aspect-ratio: 4 / 3;
+            /* rectangle shape; change to 1 / 1 for a square */
+            height: auto;
+            /* let aspect-ratio control height */
+            object-fit: cover;
+            /* fill frame nicely */
+            border-radius: 12px;
+            /* subtle rounded corners (set to 0 for sharp corners) */
+            border: 2px solid var(--border);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, .25);
+        }
+
+        /* layout */
+        .about-hero {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        @media (max-width:780px) {
+            .about-hero {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+
+        .avatar .initials {
+            display: none;
+        }
+
+        /* hide initials when image loads */
+
         .avatar {
             width: 44px;
             height: 44px;
@@ -418,7 +471,6 @@
         <div class="container">
             <nav>
                 <div class="nav-left">
-                    <div class="avatar" aria-hidden="true">LN</div>
                     <div>
                         <div class="name"><strong>Laxmi Narayen Nagarajan Venkatesan</strong></div>
                         <div class="muted">AI Researcher • Multimodal avatars • Audio-driven 2D/3D talking heads •
@@ -445,21 +497,33 @@
         <!-- ABOUT -->
         <section id="about">
             <span class="kicker">About</span>
-            <h1><strong>Laxmi Narayen Nagarajan Venkatesan</strong></h1>
-            <p class="muted">
-                AI Researcher focused on <em>multimodal embodied agents</em>,
-                <em>audio-driven 2D/3D talking heads</em>, and <em>production-grade ML</em>.
-                I build solutions that are adoption-ready, measured for impact, and engineered for efficiency.
-            </p>
-            <div class="row" style="margin-top:10px">
-                <a class="btn" href="mailto:nvlnarayen@gmail.com">✉️ nvlnarayen@gmail.com</a>
-                <a class="btn" href="https://scholar.google.com/citations?user=5EZ4zXYAAAAJ&hl=en">🎓 Google Scholar</a>
-                <a class="btn" href="https://www.linkedin.com/in/laxminarayen-n-v-a07b9b157/">💼 LinkedIn</a>
-                <a class="btn" href="https://github.com/Laxminarayen">🐙 GitHub</a>
-                <a class="btn" href="cv.pdf">📄 Short CV</a>
+
+            <div class="about-hero">
+                <img class="hero-pic" src="profile.jpg" alt="Portrait of Laxmi Narayen Nagarajan Venkatesan" width="360"
+                    height="360" loading="eager">
+
+                <div class="hero-text">
+                    <h1><strong>Laxmi Narayen Nagarajan Venkatesan</strong></h1>
+                    <p class="muted">
+                        AI Researcher focused on <em>multimodal embodied agents</em>,
+                        <em>audio-driven 2D/3D talking heads</em>, and <em>production-grade ML</em>.
+                        I build solutions that are adoption-ready, measured for impact, and engineered for efficiency.
+                    </p>
+
+                    <div class="row" style="margin-top:10px">
+                        <a class="btn" href="mailto:nvlnarayen@gmail.com">✉️ nvlnarayen@gmail.com</a>
+                        <a class="btn" href="https://scholar.google.com/citations?user=5EZ4zXYAAAAJ&hl=en">🎓 Google
+                            Scholar</a>
+                        <a class="btn" href="https://www.linkedin.com/in/laxminarayen-n-v-a07b9b157/">💼 LinkedIn</a>
+                        <a class="btn" href="https://github.com/Laxminarayen">🐙 GitHub</a>
+                        <a class="btn" href="cv.pdf">📄 Short CV</a>
+                    </div>
+
+                    <p class="muted" style="margin-top:10px">Bengaluru, India · +91 95438 53644</p>
+                </div>
             </div>
-            <p class="muted" style="margin-top:10px">Bengaluru, India · +91 95438 53644</p>
         </section>
+
 
         <!-- PROJECTS -->
         <section id="projects">
