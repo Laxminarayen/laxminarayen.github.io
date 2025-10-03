@@ -529,49 +529,43 @@
     </noscript>
 
     <script>
-        // ---------------- THEME (system-aware + toggle) ----------------
-        (function themeBoot() {
+        /* ===== THEME (system-aware + toggle) ===== */
+        (function () {
             try {
-                const saved = localStorage.getItem('theme');
-                const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-                const initial = saved || (prefersDark ? 'dark' : 'light');
+                var saved = localStorage.getItem('theme');
+                var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                var initial = saved || (prefersDark ? 'dark' : 'light');
                 document.documentElement.setAttribute('data-theme', initial);
-                const btn = document.getElementById('theme-toggle');
+                var btn = document.getElementById('theme-toggle');
+                function setIcon(mode) { if (btn) { btn.textContent = (mode === 'dark') ? '🌙' : '☀️'; } }
+                setIcon(initial);
                 if (btn) {
-                    updateIcon(initial);
-                    btn.addEventListener('click', () => {
-                        const current = document.documentElement.getAttribute('data-theme');
-                        const next = current === 'dark' ? 'light' : 'dark';
+                    btn.addEventListener('click', function () {
+                        var current = document.documentElement.getAttribute('data-theme');
+                        var next = current === 'dark' ? 'light' : 'dark';
                         document.documentElement.setAttribute('data-theme', next);
                         localStorage.setItem('theme', next);
-                        updateIcon(next);
+                        setIcon(next);
                     });
                 }
-                function updateIcon(mode) { const b = document.getElementById('theme-toggle'); if (b) b.textContent = mode === 'dark' ? '🌙' : '☀️'; }
             } catch (e) { console.error('Theme init error:', e); }
         })();
 
-        // ---------------- DATA ----------------
-        const PROJECTS = [
+        /* ===== DATA ===== */
+        var PROJECTS = [
             { title: "Multimodal Avatar Prototype", blurb: "Audio-conditioned face animation with identity-preserving controls and robust lip-sync.", repo: "", demo: "", tags: ["Multimodal", "Avatars", "Audio-driven"] },
             { title: "Real-time Emotion Control", blurb: "Latency-aware control pipeline enabling expressive 3D animation at interactive rates.", repo: "", demo: "", tags: ["3D", "Real-time", "Emotion"] },
             { title: "Evaluation & Tooling", blurb: "Lightweight toolkit for dataset prep, batch evals, and side-by-side qualitative reviews.", repo: "", demo: "", tags: ["Tooling", "Evaluation"] }
         ];
 
-        const PUBLICATIONS = [
+        var PUBLICATIONS = [
             {
                 year: "2023",
                 title: "Multimodal Embodied Conversational Agents: A discussion of architectures, frameworks and modules for commercial applications",
                 authors: "<strong>Laxmi Narayen Nagarajan Venkatesan</strong>, Kumar Shubham, Dinesh Babu Jayagopi, Raj Tumuluri",
                 venue: "IEEE International Conference on Artificial Intelligence & Virtual Reality (AIVR 2022)",
                 links: { doi: "https://doi.org/10.1109/AIVR56993.2022.00013" },
-                bibtex: `@inproceedings{venkatesan2022meca,
-  author = {Laxmi Narayen Nagarajan Venkatesan and Kumar Shubham and Dinesh Babu Jayagopi and Raj Tumuluri},
-  title = {Multimodal Embodied Conversational Agents: A discussion of architectures, frameworks and modules for commercial applications},
-  booktitle = {IEEE International Conference on Artificial Intelligence & Virtual Reality (AIVR)},
-  year = {2022},
-  doi = {10.1109/AIVR56993.2022.00013}
-}`
+                bibtex: "@inproceedings{venkatesan2022meca,\n  author = {Laxmi Narayen Nagarajan Venkatesan and Kumar Shubham and Dinesh Babu Jayagopi and Raj Tumuluri},\n  title = {Multimodal Embodied Conversational Agents: A discussion of architectures, frameworks and modules for commercial applications},\n  booktitle = {IEEE International Conference on Artificial Intelligence & Virtual Reality (AIVR)},\n  year = {2022},\n  doi = {10.1109/AIVR56993.2022.00013}\n}"
             },
             {
                 year: "2025",
@@ -579,17 +573,11 @@
                 authors: "Pooja SB Rao, <strong>Laxmi Narayen Nagarajan Venkatesan</strong>, Mauro Cherubini, Dinesh Babu Jayagopi",
                 venue: "AAAI/ACM Conference on AI, Ethics, and Society (AIES 2025)",
                 links: { doi: "https://doi.org/10.48550/arXiv.2508.16673", pdf: "https://arxiv.org/pdf/2508.16673" },
-                bibtex: `@inproceedings{rao2025invisible,
-  author = {Pooja SB Rao and Laxmi Narayen Nagarajan Venkatesan and Mauro Cherubini and Dinesh Babu Jayagopi},
-  title = {Invisible Filters: Cultural Bias in Hiring Evaluations Using Large Language Models},
-  booktitle = {Proceedings of the AAAI/ACM Conference on AI, Ethics, and Society (AIES)},
-  year = {2025},
-  doi = {10.48550/arXiv.2508.16673}
-}`
+                bibtex: "@inproceedings{rao2025invisible,\n  author = {Pooja SB Rao and Laxmi Narayen Nagarajan Venkatesan and Mauro Cherubini and Dinesh Babu Jayagopi},\n  title = {Invisible Filters: Cultural Bias in Hiring Evaluations Using Large Language Models},\n  booktitle = {Proceedings of the AAAI/ACM Conference on AI, Ethics, and Society (AIES)},\n  year = {2025},\n  doi = {10.48550/arXiv.2508.16673}\n}"
             }
         ];
 
-        const OUTPUTS = [
+        var OUTPUTS = [
             { kind: "video", title: "Demo 1", src: "demo1.mp4", caption: "Prototype demo 1" },
             { kind: "video", title: "Demo 2", src: "demo2.mp4", caption: "Prototype demo 2" },
             { kind: "video", title: "Demo 3", src: "demo3.mp4", caption: "Prototype demo 3" },
@@ -598,27 +586,33 @@
             { kind: "video", title: "Demo 6", src: "demo6.mp4", caption: "Prototype demo 6" }
         ];
 
-        const TRAVEL_GALLERIES = [
+        var TRAVEL_GALLERIES = [
             { id: 'gallery-amld24', title: 'AMLD-24: Switzerland', base: 'AMLD-24_Swizerland/', images: ['pic1.jpeg', 'pic2.jpeg', 'pic3.jpeg', 'pic4.jpeg'] }
         ];
 
-        // ---------------- HELPERS ----------------
-        function el(tag, cls, html) { const e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; }
+        /* ===== HELPERS ===== */
+        function el(tag, cls, html) {
+            var e = document.createElement(tag);
+            if (cls) e.className = cls;
+            if (html != null) e.innerHTML = html;
+            return e;
+        }
 
-        // ---------------- RENDERERS (wrapped in try/catch) ----------------
+        /* ===== RENDERERS (no optional chaining; try/catch guarded) ===== */
         function renderProjects() {
             try {
-                const grid = document.getElementById('project-grid'); if (!grid) return;
-                PROJECTS.forEach(p => {
-                    const card = el('article', 'card');
-                    const header = el('div', 'row');
+                var grid = document.getElementById('project-grid'); if (!grid) return;
+                PROJECTS.forEach(function (p) {
+                    var card = el('article', 'card');
+                    var header = el('div', 'row');
                     header.appendChild(el('h3', null, p.title));
-                    const actions = el('div', 'row');
+                    var actions = el('div', 'row');
                     if (p.repo) actions.appendChild(Object.assign(el('a', 'btn', 'Repo →'), { href: p.repo }));
                     if (p.demo) actions.appendChild(Object.assign(el('a', 'btn', 'Live Demo ↗'), { href: p.demo }));
                     card.appendChild(header);
                     card.appendChild(el('p', 'muted', p.blurb));
-                    const tags = el('div', 'row'); (p.tags || []).forEach(t => tags.appendChild(el('span', 'tag', t)));
+                    var tags = el('div', 'row');
+                    (p.tags || []).forEach(function (t) { tags.appendChild(el('span', 'tag', t)); });
                     if ((p.tags || []).length) card.appendChild(tags);
                     if (actions.children.length) card.appendChild(actions);
                     grid.appendChild(card);
@@ -628,28 +622,27 @@
 
         function renderPubs() {
             try {
-                const list = document.getElementById('pub-list'); if (!list) return;
+                var list = document.getElementById('pub-list'); if (!list) return;
                 if (!PUBLICATIONS.length) {
-                    const note = el('div', 'card muted', 'Publications are currently anonymized for double-blind review. Please see Google Scholar for a complete list.');
-                    list.appendChild(note);
+                    list.appendChild(el('div', 'card muted', 'Publications are currently anonymized for double-blind review. Please see Google Scholar for a complete list.'));
                     return;
                 }
-                PUBLICATIONS.forEach((p, idx) => {
-                    const item = el('article', 'card');
+                PUBLICATIONS.forEach(function (p, idx) {
+                    var item = el('article', 'card');
                     item.appendChild(el('h3', null, p.title));
-                    item.appendChild(el('p', 'muted', `${p.authors} · <span class="nowrap">${p.venue}</span> · <span class="nowrap">${p.year}</span>`));
-                    const actions = el('div', 'pub-actions');
-                    if (p.links?.pdf) actions.appendChild(Object.assign(el('a', 'btn', 'PDF'), { href: p.links.pdf }));
-                    if (p.links?.doi) actions.appendChild(Object.assign(el('a', 'btn', 'DOI'), { href: p.links.doi }));
-                    const toggle = Object.assign(el('button', 'btn', 'BibTeX'), {
-                        onclick: () => {
-                            const box = document.getElementById(`bib-${idx}`);
+                    item.appendChild(el('p', 'muted', p.authors + ' · <span class="nowrap">' + p.venue + '</span> · <span class="nowrap">' + p.year + '</span>'));
+                    var actions = el('div', 'pub-actions');
+                    if (p.links && p.links.pdf) actions.appendChild(Object.assign(el('a', 'btn', 'PDF'), { href: p.links.pdf }));
+                    if (p.links && p.links.doi) actions.appendChild(Object.assign(el('a', 'btn', 'DOI'), { href: p.links.doi }));
+                    var toggle = Object.assign(el('button', 'btn', 'BibTeX'), {
+                        onclick: function () {
+                            var box = document.getElementById('bib-' + idx);
                             box.style.display = (box.style.display === 'block') ? 'none' : 'block';
                         }
                     });
                     actions.appendChild(toggle);
                     item.appendChild(actions);
-                    const pre = Object.assign(el('pre', 'card'), { id: `bib-${idx}`, style: 'display:none; overflow:auto' });
+                    var pre = Object.assign(el('pre', 'card'), { id: 'bib-' + idx, style: 'display:none; overflow:auto' });
                     pre.textContent = p.bibtex || '';
                     item.appendChild(pre);
                     list.appendChild(item);
@@ -659,16 +652,13 @@
 
         function renderTravel() {
             try {
-                TRAVEL_GALLERIES.forEach(g => {
-                    const mount = document.getElementById(g.id); if (!mount) return;
-                    g.images.forEach(name => {
-                        const a = document.createElement('a');
-                        a.href = `${g.base}${name}`;
-                        a.target = "_blank"; a.rel = "noopener";
-                        const img = document.createElement('img');
-                        img.loading = "lazy";
-                        img.alt = `${g.title} – ${name}`;
-                        img.src = `${g.base}${name}`;
+                TRAVEL_GALLERIES.forEach(function (g) {
+                    var mount = document.getElementById(g.id); if (!mount) return;
+                    g.images.forEach(function (name) {
+                        var a = document.createElement('a');
+                        a.href = g.base + name; a.target = "_blank"; a.rel = "noopener";
+                        var img = document.createElement('img');
+                        img.loading = "lazy"; img.alt = g.title + " – " + name; img.src = g.base + name;
                         a.appendChild(img);
                         mount.appendChild(a);
                     });
@@ -678,15 +668,14 @@
 
         function renderOutputs() {
             try {
-                const grid = document.getElementById('outputs-grid'); if (!grid) return;
-                OUTPUTS.forEach(o => {
-                    const card = el('article', 'card');
+                var grid = document.getElementById('outputs-grid'); if (!grid) return;
+                OUTPUTS.forEach(function (o) {
+                    var card = el('article', 'card');
                     card.appendChild(el('h3', null, o.title));
-                    const shell = document.createElement('div');
-                    shell.className = 'video-wrap';
-                    const vid = document.createElement('video');
+                    var shell = document.createElement('div'); shell.className = 'video-wrap';
+                    var vid = document.createElement('video');
                     vid.setAttribute('controls', ''); vid.setAttribute('preload', 'metadata'); vid.setAttribute('playsinline', '');
-                    vid.innerHTML = `<source src="${o.src}" type="video/mp4">Your browser does not support the video tag.`;
+                    vid.innerHTML = '<source src="' + o.src + '" type="video/mp4">Your browser does not support the video tag.';
                     shell.appendChild(vid);
                     card.appendChild(shell);
                     if (o.caption) card.appendChild(el('p', 'muted', o.caption));
@@ -695,15 +684,16 @@
             } catch (err) { console.error('renderOutputs error:', err); }
         }
 
-        // ---------------- BOOT ----------------
-        window.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('year').textContent = new Date().getFullYear();
+        /* ===== BOOT AFTER DOM READY ===== */
+        window.addEventListener('DOMContentLoaded', function () {
+            var y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
             renderProjects();
             renderPubs();
             renderTravel();
             renderOutputs();
         });
     </script>
+
 </body>
 
 </html>
