@@ -496,20 +496,22 @@
     <script>
         // ======= THEME =======
         (function themeBoot() {
-            const saved = localStorage.getItem('theme'); // 'light' | 'dark' | null
+            const saved = localStorage.getItem('theme');
             const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
             const initial = saved || (prefersDark ? 'dark' : 'light');
             document.documentElement.setAttribute('data-theme', initial);
             const btn = document.getElementById('theme-toggle');
-            updateThemeIcon(initial);
-            btn.addEventListener('click', () => {
-                const current = document.documentElement.getAttribute('data-theme');
-                const next = current === 'dark' ? 'light' : 'dark';
-                document.documentElement.setAttribute('data-theme', next);
-                localStorage.setItem('theme', next);
-                updateThemeIcon(next);
-            });
-            function updateThemeIcon(mode) { document.getElementById('theme-toggle').textContent = mode === 'dark' ? '🌙' : '☀️'; }
+            if (btn) {
+                updateThemeIcon(initial);
+                btn.addEventListener('click', () => {
+                    const current = document.documentElement.getAttribute('data-theme');
+                    const next = current === 'dark' ? 'light' : 'dark';
+                    document.documentElement.setAttribute('data-theme', next);
+                    localStorage.setItem('theme', next);
+                    updateThemeIcon(next);
+                });
+            }
+            function updateThemeIcon(mode) { const b = document.getElementById('theme-toggle'); if (b) b.textContent = mode === 'dark' ? '🌙' : '☀️'; }
         })();
 
         // ======= DATA =======
@@ -519,39 +521,35 @@
             { title: "Evaluation & Tooling", blurb: "Lightweight toolkit for dataset prep, batch evals, and side-by-side qualitative reviews.", repo: "", demo: "", tags: ["Tooling", "Evaluation"] }
         ];
 
-        // Keep publications empty for double-blind (fill later with real entries, bold your name in authors).
+        // ✅ PUBLICATIONS (your two entries) — keep ONLY this definition in the file
         const PUBLICATIONS = [
             {
                 year: "2023",
                 title: "Multimodal Embodied Conversational Agents: A discussion of architectures, frameworks and modules for commercial applications",
                 authors: "<strong>Laxmi Narayen Nagarajan Venkatesan</strong>, Kumar Shubham, Dinesh Babu Jayagopi, Raj Tumuluri",
                 venue: "IEEE International Conference on Artificial Intelligence & Virtual Reality (AIVR 2022)",
-                links: {
-                    doi: "https://doi.org/10.1109/AIVR56993.2022.00013"
-                },
+                links: { doi: "https://doi.org/10.1109/AIVR56993.2022.00013" },
                 bibtex: `@inproceedings{venkatesan2022meca,
-                author = {Laxmi Narayen Nagarajan Venkatesan and Kumar Shubham and Dinesh Babu Jayagopi and Raj Tumuluri},
-                title = {Multimodal Embodied Conversational Agents: A discussion of architectures, frameworks and modules for commercial applications},
-                booktitle = {IEEE International Conference on Artificial Intelligence & Virtual Reality (AIVR)},
-                year = {2022},
-                doi = {10.1109/AIVR56993.2022.00013}
-                }`
+        author = {Laxmi Narayen Nagarajan Venkatesan and Kumar Shubham and Dinesh Babu Jayagopi and Raj Tumuluri},
+        title = {Multimodal Embodied Conversational Agents: A discussion of architectures, frameworks and modules for commercial applications},
+        booktitle = {IEEE International Conference on Artificial Intelligence & Virtual Reality (AIVR)},
+        year = {2022},
+        doi = {10.1109/AIVR56993.2022.00013}
+      }`
             },
             {
                 year: "2025",
                 title: "Invisible Filters: Cultural Bias in Hiring Evaluations Using Large Language Models",
                 authors: "Pooja SB Rao, <strong>Laxmi Narayen Nagarajan Venkatesan</strong>, Mauro Cherubini, Dinesh Babu Jayagopi",
                 venue: "AAAI/ACM Conference on AI, Ethics, and Society (AIES 2025)",
-                links: {
-                    doi: "https://doi.org/10.48550/arXiv.2508.16673"
-                },
+                links: { doi: "https://doi.org/10.48550/arXiv.2508.16673", pdf: "https://arxiv.org/pdf/2508.16673" },
                 bibtex: `@inproceedings{rao2025invisible,
-                author = {Pooja SB Rao and Laxmi Narayen Nagarajan Venkatesan and Mauro Cherubini and Dinesh Babu Jayagopi},
-                title = {Invisible Filters: Cultural Bias in Hiring Evaluations Using Large Language Models},
-                booktitle = {Proceedings of the AAAI/ACM Conference on AI, Ethics, and Society (AIES)},
-                year = {2025},
-                doi = {10.48550/arXiv.2508.16673}
-                }`
+        author = {Pooja SB Rao and Laxmi Narayen Nagarajan Venkatesan and Mauro Cherubini and Dinesh Babu Jayagopi},
+        title = {Invisible Filters: Cultural Bias in Hiring Evaluations Using Large Language Models},
+        booktitle = {Proceedings of the AAAI/ACM Conference on AI, Ethics, and Society (AIES)},
+        year = {2025},
+        doi = {10.48550/arXiv.2508.16673}
+      }`
             }
         ];
 
@@ -565,14 +563,9 @@
             { kind: "video", title: "Demo 6", src: "demo6.mp4", caption: "Prototype demo 6" }
         ];
 
-        // Travel gallery data — NOTE: folder spelling exactly as in repo
+        // Travel gallery
         const TRAVEL_GALLERIES = [
-            {
-                id: 'gallery-amld24',
-                title: 'AMLD-24: Switzerland',
-                base: 'AMLD-24_Swizerland/',   // <-- your folder name
-                images: ['pic1.jpeg', 'pic2.jpeg', 'pic3.jpeg', 'pic4.jpeg']
-            }
+            { id: 'gallery-amld24', title: 'AMLD-24: Switzerland', base: 'AMLD-24_Swizerland/', images: ['pic1.jpeg', 'pic2.jpeg', 'pic3.jpeg', 'pic4.jpeg'] }
         ];
 
         // ======= RENDER =======
@@ -592,8 +585,8 @@
                 const tags = el('div', 'row'); (p.tags || []).forEach(t => tags.appendChild(el('span', 'tag', t)));
                 if ((p.tags || []).length) card.appendChild(tags);
                 if (actions.children.length) card.appendChild(actions);
-                grid.appendChild(card);
-            });
+                grid.appendChild(card));
+        });
         }
 
         function renderPubs() {
@@ -606,10 +599,9 @@
             PUBLICATIONS.forEach((p, idx) => {
                 const item = el('article', 'card');
                 item.appendChild(el('h3', null, p.title));
-                item.appendChild(el('p', 'muted', `${p.authors} · <span class="nowrap">${p.venue}</span>`));
+                item.appendChild(el('p', 'muted', `${p.authors} · <span class="nowrap">${p.venue}</span> · <span class="nowrap">${p.year}</span>`));
                 const actions = el('div', 'pub-actions');
                 if (p.links?.pdf) actions.appendChild(Object.assign(el('a', 'btn', 'PDF'), { href: p.links.pdf }));
-                if (p.links?.code) actions.appendChild(Object.assign(el('a', 'btn', 'Code'), { href: p.links.code }));
                 if (p.links?.doi) actions.appendChild(Object.assign(el('a', 'btn', 'DOI'), { href: p.links.doi }));
                 const toggle = Object.assign(el('button', 'btn', 'BibTeX'), {
                     onclick: () => {
@@ -661,12 +653,14 @@
             });
         }
 
+        // Call order — define data first, THEN render:
         document.getElementById('year').textContent = new Date().getFullYear();
         renderProjects();
         renderPubs();
         renderTravel();
         renderOutputs();
     </script>
+
 </body>
 
 </html>
