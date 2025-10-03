@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Laxmi Narayen Nagarajan Venkatesan — AI Researcher</title>
+    <meta name="description"
+        content="Portfolio/CV for Laxmi Narayen Nagarajan Venkatesan: AI researcher focusing on multimodal avatars, audio-driven 2D/3D talking heads, and practical ML." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #0b0d10;
+            --card: #12161b;
+            --muted: #9aa4b2;
+            --text: #e8edf2;
+            --brand: #60a5fa;
+            --accent: #22d3ee;
+            --border: #1f2630;
+            --print-text: #000;
+            --print-muted: #444;
+            --print-border: #ddd;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6
+        }
+
+        a {
+            color: var(--brand);
+            text-decoration: none
+        }
+
+        a:hover {
+            text-decoration: underline
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 24px
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            backdrop-filter: saturate(180%) blur(10px);
+            background: rgba(11, 13, 16, 0.7);
+            border-bottom: 1px solid var(--border);
+            z-index: 10
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #1c2330;
+            display: grid;
+            place-items: center;
+            font-weight: 700
+        }
+
+        .name {
+            font-weight: 700;
+            font-size: 18px
+        }
+
+        .links {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap
+        }
+
+        .pill {
+            border: 1px solid var(--border);
+            padding: 6px 10px;
+            border-radius: 999px;
+            color: var(--muted);
+            font-size: 13px
+        }
+
+        main {
+            padding-top: 18px
+        }
+
+        section {
+            padding: 28px 0;
+            border-bottom: 1px solid var(--border)
+        }
+
+        h1,
+        h2,
+        h3 {
+            line-height: 1.25;
+            margin: 0 0 12px
+        }
+
+        h1 {
+            font-size: 34px
+        }
+
+        h2 {
+            font-size: 22px
+        }
+
+        h3 {
+            font-size: 18px
+        }
+
+        p {
+            margin: 0 0 10px
+        }
+
+        .grid {
+            display: grid;
+            gap: 16px
+        }
+
+        .two {
+            grid-template-columns: repeat(2, minmax(0, 1fr))
+        }
+
+        .three {
+            grid-template-columns: repeat(3, minmax(0, 1fr))
+        }
+
+        @media (max-width:900px) {
+
+            .two,
+            .three {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 16px
+        }
+
+        .card:hover {
+            border-color: #273244
+        }
+
+        .muted {
+            color: var(--muted)
+        }
+
+        .kicker {
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 12px;
+            color: var(--accent)
+        }
+
+        .nowrap {
+            white-space: nowrap
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--border);
+            background: #0f1318;
+            padding: 8px 12px;
+            border-radius: 10px;
+            color: var(--text)
+        }
+
+        .btn:hover {
+            background: #0d1116
+        }
+
+        .tag {
+            font-size: 12px;
+            color: var(--muted);
+            border: 1px solid var(--border);
+            padding: 2px 8px;
+            border-radius: 999px
+        }
+
+        .list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px
+        }
+
+        .pub-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap
+        }
+
+        .footer {
+            padding: 20px 0;
+            color: var(--muted);
+            font-size: 13px
+        }
+
+        @media print {
+            body {
+                background: #fff;
+                color: var(--print-text)
+            }
+
+            header {
+                position: static;
+                background: #fff;
+                border-bottom: 1px solid var(--print-border)
+            }
+
+            .card {
+                background: #fff;
+                border: 1px solid var(--print-border)
+            }
+
+            a {
+                color: #000
+            }
+
+            .btn {
+                display: none
+            }
+
+            .pill {
+                border-color: var(--print-border);
+                color: var(--print-muted)
+            }
+
+            .footer {
+                color: #000
+            }
+
+            .links {
+                gap: 8px
+            }
+        }
+    </style>
+
+    <!-- SEO / structured data -->
+    <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Person",
+    "name":"Laxmi Narayen Nagarajan Venkatesan",
+    "jobTitle":"AI Researcher",
+    "email":"mailto:nvlnarayen@gmail.com",
+    "url":"https://laxminarayen.github.io/",
+    "sameAs":[
+      "https://scholar.google.com/citations?user=5EZ4zXYAAAAJ&hl=en",
+      "https://www.linkedin.com/in/laxminarayen-n-v-a07b9b157/",
+      "https://github.com/Laxminarayen"
+    ]
+  }
+  </script>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="nav-left">
+                    <div class="avatar" aria-hidden="true">LN</div>
+                    <div>
+                        <div class="name">Laxmi Narayen Nagarajan Venkatesan</div>
+                        <div class="muted">AI Researcher • Multimodal avatars • Audio-driven 2D/3D talking heads •
+                            Practical ML</div>
+                    </div>
+                </div>
+                <div class="links">
+                    <a class="pill" href="#about">About</a>
+                    <a class="pill" href="#projects">Projects</a>
+                    <a class="pill" href="#publications">Publications</a>
+                    <a class="pill" href="#outputs">Outputs</a>
+                    <a class="pill" href="#contact">Contact</a>
+                    <a class="btn" href="cv.pdf">📄 CV</a>
+                    <button class="btn" onclick="window.print()" title="Save/print a PDF version">🖨️ Download
+                        PDF</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- ABOUT -->
+        <section id="about">
+            <span class="kicker">About</span>
+            <h1>Laxmi Narayen Nagarajan Venkatesan</h1>
+            <p class="muted">
+                AI Researcher focused on <em>multimodal embodied agents</em>,
+                <em>audio-driven 2D/3D talking heads</em>, and <em>production-grade ML</em>.
+                I build solutions that are adoption-ready, measured for impact, and engineered for efficiency.
+            </p>
+            <div class="row" style="margin-top:10px">
+                <a class="btn" href="mailto:nvlnarayen@gmail.com">✉️ nvlnarayen@gmail.com</a>
+                <a class="btn" href="https://scholar.google.com/citations?user=5EZ4zXYAAAAJ&hl=en">🎓 Google Scholar</a>
+                <a class="btn" href="https://www.linkedin.com/in/laxminarayen-n-v-a07b9b157/">💼 LinkedIn</a>
+                <a class="btn" href="https://github.com/Laxminarayen">🐙 GitHub</a>
+                <a class="btn" href="cv.pdf">📄 Short CV</a>
+            </div>
+            <p class="muted" style="margin-top:10px">
+                Bengaluru, India · +91 95438 53644
+            </p>
+        </section>
+
+        <!-- PROJECTS (generic, no paper names) -->
+        <section id="projects">
+            <span class="kicker">Projects</span>
+            <h2>Selected Projects</h2>
+            <p class="muted">Representative work and prototypes (generic descriptions to preserve double-blind review).
+            </p>
+            <div class="grid two" id="project-grid"><!-- injected by JS --></div>
+        </section>
+
+        <!-- PUBLICATIONS (kept anonymous during review) -->
+        <section id="publications">
+            <span class="kicker">Publications</span>
+            <h2>Papers & Preprints</h2>
+            <div class="list" id="pub-list"><!-- injected by JS --></div>
+            <p class="muted" style="margin-top:10px">
+                Full list on <a href="https://scholar.google.com/citations?user=5EZ4zXYAAAAJ&hl=en">Google Scholar</a>.
+            </p>
+        </section>
+
+        <!-- OUTPUTS (your six MP4 demos) -->
+        <section id="outputs">
+            <span class="kicker">Outputs</span>
+            <h2>Research Demos</h2>
+            <p class="muted">Prototype videos from ongoing research (no paper titles shown).</p>
+            <div class="grid two" id="outputs-grid"><!-- injected by JS --></div>
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact">
+            <span class="kicker">Contact</span>
+            <h2>Get in touch</h2>
+            <p>
+                Email: <a href="mailto:nvlnarayen@gmail.com">nvlnarayen@gmail.com</a> •
+                Location: Bengaluru, India
+            </p>
+        </section>
+
+        <footer class="footer">
+            <div class="row">
+                <span>© <span id="year"></span> Laxmi Narayen Nagarajan Venkatesan</span>
+                <span class="muted">· Built with vanilla HTML/CSS for GitHub Pages</span>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        // ======= DATA (generic/no paper names) =======
+        const PROJECTS = [
+            {
+                title: "Multimodal Avatar Prototype",
+                blurb: "Audio-conditioned face animation with identity-preserving controls and robust lip-sync.",
+                repo: "",   // add when public
+                demo: "",   // add HF Space/site if any
+                tags: ["Multimodal", "Avatars", "Audio-driven"]
+            },
+            {
+                title: "Real-time Emotion Control",
+                blurb: "Latency-aware control pipeline enabling expressive 3D animation at interactive rates.",
+                repo: "",
+                demo: "",
+                tags: ["3D", "Real-time", "Emotion"]
+            },
+            {
+                title: "Evaluation & Tooling",
+                blurb: "Lightweight toolkit for dataset prep, batch evals, and side-by-side qualitative reviews.",
+                repo: "",
+                demo: "",
+                tags: ["Tooling", "Evaluation"]
+            }
+        ];
+
+        // Keep publications empty here to avoid revealing titles/venues during double-blind.
+        const PUBLICATIONS = [
+            // Example (use AFTER reviews): 
+            // { title:"...", authors:"...", venue:"...", links:{pdf:"...", code:"", doi:""}, bibtex:"..." }
+        ];
+
+        // Your six demo videos (MP4)
+        const OUTPUTS = [
+            { kind: "video", title: "Demo 1", src: "demo1.mp4", caption: "Prototype demo 1" },
+            { kind: "video", title: "Demo 2", src: "demo2.mp4", caption: "Prototype demo 2" },
+            { kind: "video", title: "Demo 3", src: "demo3.mp4", caption: "Prototype demo 3" },
+            { kind: "video", title: "Demo 4", src: "demo4.mp4", caption: "Prototype demo 4" },
+            { kind: "video", title: "Demo 5", src: "demo5.mp4", caption: "Prototype demo 5" },
+            { kind: "video", title: "Demo 6", src: "demo6.mp4", caption: "Prototype demo 6" }
+        ];
+
+        // ======= RENDER (no framework) =======
+        function el(tag, cls, html) { const e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; }
+
+        function renderProjects() {
+            const grid = document.getElementById('project-grid');
+            PROJECTS.forEach(p => {
+                const card = el('article', 'card');
+                const header = el('div', 'row');
+                header.appendChild(el('h3', null, p.title));
+                const actions = el('div', 'row');
+                if (p.repo) actions.appendChild(Object.assign(el('a', 'btn', 'Repo →'), { href: p.repo }));
+                if (p.demo) actions.appendChild(Object.assign(el('a', 'btn', 'Live Demo ↗'), { href: p.demo }));
+                card.appendChild(header);
+                card.appendChild(el('p', 'muted', p.blurb));
+                const tags = el('div', 'row');
+                (p.tags || []).forEach(t => tags.appendChild(el('span', 'tag', t)));
+                card.appendChild(tags);
+                if (actions.children.length) card.appendChild(actions);
+                grid.appendChild(card);
+            });
+        }
+
+        function renderPubs() {
+            const list = document.getElementById('pub-list');
+            if (!PUBLICATIONS.length) {
+                const note = el('div', 'card muted', 'Publications are currently anonymized for double-blind review. Please see Google Scholar for a complete list.');
+                list.appendChild(note);
+                return;
+            }
+            PUBLICATIONS.forEach((p, idx) => {
+                const item = el('article', 'card');
+                item.appendChild(el('h3', null, p.title));
+                item.appendChild(el('p', 'muted', `${p.authors} · <span class="nowrap">${p.venue}</span>`));
+                const actions = el('div', 'pub-actions');
+                if (p.links?.pdf) actions.appendChild(Object.assign(el('a', 'btn', 'PDF'), { href: p.links.pdf }));
+                if (p.links?.code) actions.appendChild(Object.assign(el('a', 'btn', 'Code'), { href: p.links.code }));
+                if (p.links?.doi) actions.appendChild(Object.assign(el('a', 'btn', 'DOI'), { href: p.links.doi }));
+                const toggle = Object.assign(el('button', 'btn', 'BibTeX'), {
+                    onclick: () => {
+                        const box = document.getElementById(`bib-${idx}`);
+                        box.style.display = (box.style.display === 'block') ? 'none' : 'block';
+                    }
+                });
+                actions.appendChild(toggle);
+                item.appendChild(actions);
+                const pre = Object.assign(el('pre', 'card'), { id: `bib-${idx}`, style: 'display:none; overflow:auto' });
+                pre.textContent = p.bibtex || '';
+                item.appendChild(pre);
+                list.appendChild(item);
+            });
+        }
+
+        function renderOutputs() {
+            const grid = document.getElementById('outputs-grid');
+            OUTPUTS.forEach(o => {
+                const card = el('article', 'card');
+                card.appendChild(el('h3', null, o.title));
+                const content = `
+          <video controls width="100%" style="border-radius:12px">
+            <source src="${o.src}" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>`;
+                card.insertAdjacentHTML('beforeend', content);
+                if (o.caption) card.appendChild(el('p', 'muted', o.caption));
+                grid.appendChild(card);
+            });
+        }
+
+        document.getElementById('year').textContent = new Date().getFullYear();
+        renderProjects();
+        renderPubs();
+        renderOutputs();
+    </script>
+</body>
+
+</html>
