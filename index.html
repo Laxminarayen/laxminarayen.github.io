@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="auto">
 
 <head>
     <meta charset="utf-8" />
@@ -14,16 +14,30 @@
 
     <style>
         :root {
+            /* dark theme (default) */
             --bg: #0b0d10;
             --card: #12161b;
             --muted: #9aa4b2;
             --text: #e8edf2;
-            --brand: #60a5fa;
+            --brand: #3b82f6;
             --accent: #22d3ee;
             --border: #1f2630;
             --print-text: #000;
             --print-muted: #444;
             --print-border: #ddd;
+            --shadow: 0 6px 18px rgba(0, 0, 0, .25);
+        }
+
+        /* light theme overrides */
+        [data-theme="light"] {
+            --bg: #ffffff;
+            --card: #f7f8fa;
+            --muted: #4b5563;
+            --text: #0b1220;
+            --brand: #1d4ed8;
+            --accent: #0891b2;
+            --border: #e5e7eb;
+            --shadow: 0 6px 18px rgba(0, 0, 0, .08);
         }
 
         * {
@@ -61,7 +75,7 @@
             position: sticky;
             top: 0;
             backdrop-filter: saturate(180%) blur(10px);
-            background: rgba(11, 13, 16, 0.7);
+            background: color-mix(in oklab, var(--bg) 85%, transparent);
             border-bottom: 1px solid var(--border);
             z-index: 10
         }
@@ -83,7 +97,7 @@
             width: 44px;
             height: 44px;
             border-radius: 50%;
-            background: #1c2330;
+            background: color-mix(in oklab, var(--card) 80%, var(--bg));
             display: grid;
             place-items: center;
             font-weight: 700
@@ -97,7 +111,8 @@
         .links {
             display: flex;
             gap: 14px;
-            flex-wrap: wrap
+            flex-wrap: wrap;
+            align-items: center
         }
 
         .pill {
@@ -106,6 +121,20 @@
             border-radius: 999px;
             color: var(--muted);
             font-size: 13px
+        }
+
+        .theme-btn {
+            border: 1px solid var(--border);
+            background: transparent;
+            padding: 6px 10px;
+            border-radius: 999px;
+            color: var(--muted);
+            font-size: 13px;
+            cursor: pointer
+        }
+
+        .theme-btn:hover {
+            background: color-mix(in oklab, var(--card) 70%, var(--bg))
         }
 
         main {
@@ -165,11 +194,12 @@
             background: var(--card);
             border: 1px solid var(--border);
             border-radius: 16px;
-            padding: 16px
+            padding: 16px;
+            box-shadow: var(--shadow)
         }
 
         .card:hover {
-            border-color: #273244
+            border-color: color-mix(in oklab, var(--border), var(--brand) 30%)
         }
 
         .muted {
@@ -200,14 +230,14 @@
             align-items: center;
             gap: 8px;
             border: 1px solid var(--border);
-            background: #0f1318;
+            background: color-mix(in oklab, var(--bg), var(--card) 30%);
             padding: 8px 12px;
             border-radius: 10px;
             color: var(--text)
         }
 
         .btn:hover {
-            background: #0d1116
+            background: color-mix(in oklab, var(--bg), var(--card) 50%)
         }
 
         .tag {
@@ -236,6 +266,57 @@
             font-size: 13px
         }
 
+        /* Responsive video sizing for demos */
+        .video-wrap {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: #000;
+        }
+
+        .video-wrap>video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain
+        }
+
+        /* Travel gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 10px
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            display: block
+        }
+
+        .gallery a:focus img,
+        .gallery a:hover img {
+            outline: 2px solid var(--brand);
+            outline-offset: 2px
+        }
+
+        @media (max-width:900px) {
+            .gallery {
+                grid-template-columns: repeat(2, minmax(0, 1fr))
+            }
+
+            .gallery img {
+                height: 150px
+            }
+        }
+
         @media print {
             body {
                 background: #fff;
@@ -250,14 +331,16 @@
 
             .card {
                 background: #fff;
-                border: 1px solid var(--print-border)
+                border: 1px solid var(--print-border);
+                box-shadow: none
             }
 
             a {
                 color: #000
             }
 
-            .btn {
+            .btn,
+            .theme-btn {
                 display: none
             }
 
@@ -301,7 +384,7 @@
                 <div class="nav-left">
                     <div class="avatar" aria-hidden="true">LN</div>
                     <div>
-                        <div class="name">Laxmi Narayen Nagarajan Venkatesan</div>
+                        <div class="name"><strong>Laxmi Narayen Nagarajan Venkatesan</strong></div>
                         <div class="muted">AI Researcher • Multimodal avatars • Audio-driven 2D/3D talking heads •
                             Practical ML</div>
                     </div>
@@ -310,8 +393,10 @@
                     <a class="pill" href="#about">About</a>
                     <a class="pill" href="#projects">Projects</a>
                     <a class="pill" href="#publications">Publications</a>
+                    <a class="pill" href="#travel">Travel</a>
                     <a class="pill" href="#outputs">Outputs</a>
                     <a class="pill" href="#contact">Contact</a>
+                    <button id="theme-toggle" class="theme-btn" type="button" title="Toggle theme">🌙</button>
                     <a class="btn" href="cv.pdf">📄 CV</a>
                     <button class="btn" onclick="window.print()" title="Save/print a PDF version">🖨️ Download
                         PDF</button>
@@ -324,7 +409,7 @@
         <!-- ABOUT -->
         <section id="about">
             <span class="kicker">About</span>
-            <h1>Laxmi Narayen Nagarajan Venkatesan</h1>
+            <h1><strong>Laxmi Narayen Nagarajan Venkatesan</strong></h1>
             <p class="muted">
                 AI Researcher focused on <em>multimodal embodied agents</em>,
                 <em>audio-driven 2D/3D talking heads</em>, and <em>production-grade ML</em>.
@@ -361,6 +446,27 @@
             </p>
         </section>
 
+        <!-- TRAVEL -->
+        <section id="travel">
+            <span class="kicker">Travel</span>
+            <h2>Conferences & Workshops</h2>
+
+            <article class="card">
+                <h3>AMLD @ EPFL — Workshop Organizer</h3>
+                <p class="muted">
+                    <strong>Laxmi Narayen Nagarajan Venkatesan</strong> helped organize the workshop:
+                    <em>“Multimodal Machine Learning for Human Behaviour Understanding”</em> at Applied Machine Learning
+                    Days (EPFL).
+                </p>
+                <div class="row" style="margin-top:8px">
+                    <a class="btn" href="https://github.com/Laxminarayen?tab=repositories">Workshop materials →</a>
+                </div>
+
+                <!-- Photo gallery -->
+                <div class="gallery" id="gallery-amld24" style="margin-top:14px"></div>
+            </article>
+        </section>
+
         <!-- OUTPUTS (your six MP4 demos) -->
         <section id="outputs">
             <span class="kicker">Outputs</span>
@@ -381,13 +487,31 @@
 
         <footer class="footer">
             <div class="row">
-                <span>© <span id="year"></span> Laxmi Narayen Nagarajan Venkatesan</span>
+                <span>© <span id="year"></span> <strong>Laxmi Narayen Nagarajan Venkatesan</strong></span>
                 <span class="muted">· Built with vanilla HTML/CSS for GitHub Pages</span>
             </div>
         </footer>
     </main>
 
     <script>
+        // ======= THEME HANDLING =======
+        (function themeBoot() {
+            const saved = localStorage.getItem('theme'); // 'light' | 'dark' | null
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const initial = saved || (prefersDark ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', initial);
+            const btn = document.getElementById('theme-toggle');
+            updateThemeIcon(initial);
+            btn.addEventListener('click', () => {
+                const current = document.documentElement.getAttribute('data-theme');
+                const next = current === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                updateThemeIcon(next);
+            });
+            function updateThemeIcon(mode) { document.getElementById('theme-toggle').textContent = mode === 'dark' ? '🌙' : '☀️'; }
+        })();
+
         // ======= DATA (generic/no paper names) =======
         const PROJECTS = [
             {
@@ -413,10 +537,9 @@
             }
         ];
 
-        // Keep publications empty here to avoid revealing titles/venues during double-blind.
+        // Keep publications empty for double-blind.
         const PUBLICATIONS = [
-            // Example (use AFTER reviews): 
-            // { title:"...", authors:"...", venue:"...", links:{pdf:"...", code:"", doi:""}, bibtex:"..." }
+            // After reviews, add real entries (bold your name in authors with <strong>...your name...</strong>)
         ];
 
         // Your six demo videos (MP4)
@@ -427,6 +550,16 @@
             { kind: "video", title: "Demo 4", src: "demo4.mp4", caption: "Prototype demo 4" },
             { kind: "video", title: "Demo 5", src: "demo5.mp4", caption: "Prototype demo 5" },
             { kind: "video", title: "Demo 6", src: "demo6.mp4", caption: "Prototype demo 6" }
+        ];
+
+        // Travel galleries (AMLD-24 Switzerland). If you renamed the folder to AMLD-24_Switzerland, update base accordingly.
+        const TRAVEL_GALLERIES = [
+            {
+                id: 'gallery-amld24',
+                title: 'AMLD-24: Switzerland',
+                base: 'AMLD-24:%20Switzerland/', // URL-encoded space; original folder: "AMLD-24: Switzerland/"
+                images: ['pic1.jpeg', 'pic2.jpeg', 'pic3.jpeg', 'pic4.jpeg']
+            }
         ];
 
         // ======= RENDER (no framework) =======
@@ -445,7 +578,7 @@
                 card.appendChild(el('p', 'muted', p.blurb));
                 const tags = el('div', 'row');
                 (p.tags || []).forEach(t => tags.appendChild(el('span', 'tag', t)));
-                card.appendChild(tags);
+                if ((p.tags || []).length) card.appendChild(tags);
                 if (actions.children.length) card.appendChild(actions);
                 grid.appendChild(card);
             });
@@ -486,20 +619,42 @@
             OUTPUTS.forEach(o => {
                 const card = el('article', 'card');
                 card.appendChild(el('h3', null, o.title));
-                const content = `
-          <video controls width="100%" style="border-radius:12px">
-            <source src="${o.src}" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>`;
-                card.insertAdjacentHTML('beforeend', content);
+                const shell = document.createElement('div');
+                shell.className = 'video-wrap';
+                const vid = document.createElement('video');
+                vid.setAttribute('controls', '');
+                vid.setAttribute('preload', 'metadata');
+                vid.innerHTML = `<source src="${o.src}" type="video/mp4">Your browser does not support the video tag.`;
+                shell.appendChild(vid);
+                card.appendChild(shell);
                 if (o.caption) card.appendChild(el('p', 'muted', o.caption));
                 grid.appendChild(card);
+            });
+        }
+
+        function renderTravel() {
+            TRAVEL_GALLERIES.forEach(g => {
+                const mount = document.getElementById(g.id);
+                if (!mount) return;
+                g.images.forEach(name => {
+                    const a = document.createElement('a');
+                    a.href = `${g.base}${name}`; // open full-res in new tab
+                    a.target = "_blank";
+                    a.rel = "noopener";
+                    const img = document.createElement('img');
+                    img.loading = "lazy";
+                    img.alt = `${g.title} – ${name}`;
+                    img.src = `${g.base}${name}`;
+                    a.appendChild(img);
+                    mount.appendChild(a);
+                });
             });
         }
 
         document.getElementById('year').textContent = new Date().getFullYear();
         renderProjects();
         renderPubs();
+        renderTravel();
         renderOutputs();
     </script>
 </body>
