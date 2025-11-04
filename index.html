@@ -70,6 +70,67 @@
             }
         }
 
+        /* ===== LIGHTBOX GALLERY ===== */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox img,
+        .lightbox video {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 12px;
+            object-fit: contain;
+        }
+
+        .lightbox button {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            padding: 8px 14px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .lightbox button:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .lightbox .close {
+            top: 10px;
+            right: 20px;
+        }
+
+        .lightbox .prev {
+            left: 10px;
+        }
+
+        .lightbox .next {
+            right: 10px;
+        }
+
         body {
             margin: 0;
             font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial;
@@ -473,6 +534,14 @@
   }
   </script>
 </head>
+<div id="lightbox" class="lightbox">
+    <div class="lightbox-content">
+        <button class="prev">⟨</button>
+        <button class="next">⟩</button>
+        <button class="close">×</button>
+        <div id="lightbox-media"></div>
+    </div>
+</div>
 
 <body>
     <header>
@@ -571,6 +640,19 @@
                 </div>
                 <div class="gallery" id="gallery-amld24" style="margin-top:14px"></div>
             </article>
+            <article class="card">
+                <h3>ICMI 2025 — Research Demo</h3>
+                <p class="muted">
+                    <strong>Laxmi Narayen Nagarajan Venkatesan</strong> demoed his research product at the
+                    <em>ACM International Conference on Multimodal Interaction (ICMI 2025)</em>, Canberra, Australia.
+                </p>
+                <div class="row" style="margin-top:8px; position:relative; z-index:2">
+                    <a class="btn external" href="#" target="_blank" rel="noopener noreferrer">
+                        Demo materials →
+                    </a>
+                </div>
+                <div class="gallery" id="gallery-icmi25" style="margin-top:14px"></div>
+            </article>
         </section>
 
         <!-- OUTPUTS -->
@@ -662,8 +744,20 @@
         ];
 
         var TRAVEL_GALLERIES = [
-            { id: 'gallery-amld24', title: 'AMLD-24: Switzerland', base: 'AMLD-24_Swizerland/', images: ['pic1.jpeg', 'pic2.jpeg', 'pic3.jpeg', 'pic4.jpeg'] }
+            { id: 'gallery-amld24', title: 'AMLD-24: Switzerland', base: 'AMLD-24_Swizerland/', images: ['pic1.jpeg', 'pic2.jpeg', 'pic3.jpeg', 'pic4.jpeg'] },
+            {
+                id: 'gallery-icmi25',
+                title: 'ICMI 2025: Canberra',
+                base: 'ICMI-25_Canberra/',
+                images: [
+                    'Pic1.jpeg',
+                    'Pic2.jpeg',
+                    'Pic3.jpeg',
+                    'Pic4.jpeg',
+                    'Video1.mp4']
+            }
         ];
+
 
         /* ===== HELPERS ===== */
         function el(tag, cls, html) {
@@ -728,18 +822,98 @@
         function renderTravel() {
             try {
                 TRAVEL_GALLERIES.forEach(function (g) {
-                    var mount = document.getElementById(g.id); if (!mount) return;
-                    g.images.forEach(function (name) {
+                    var mount = document.getElementById(g.id);
+                    if (!mount) return;
+
+                    g.images.forEach(function (name, index) {
+                        var ext = name.split('.').pop().toLowerCase();
                         var a = document.createElement('a');
-                        a.href = g.base + name; a.target = "_blank"; a.rel = "noopener";
-                        var img = document.createElement('img');
-                        img.loading = "lazy"; img.alt = g.title + " – " + name; img.src = g.base + name;
-                        a.appendChild(img);
+                        a.href = g.base + name;
+                        a.dataset.gallery = g.id;
+                        a.dataset.index = index;
+                        a.className = "gallery-item";
+
+                        if (['mov', 'mp4', 'webm'].includes(ext)) {
+                            var v = document.createElement('video');
+                            v.src = g.base + name;
+                            v.muted = true;
+                            v.playsInline = true;
+                            v.loop = true;
+                            v.autoplay = true;
+                            v.style.borderRadius = '12px';
+                            v.style.width = '100%';
+                            a.appendChild(v);
+                        } else {
+                            var img = document.createElement('img');
+                            img.src = g.base + name;
+                            img.alt = g.title + " – " + name;
+                            img.loading = "lazy";
+                            a.appendChild(img);
+                        }
+
                         mount.appendChild(a);
                     });
                 });
-            } catch (err) { console.error('renderTravel error:', err); }
+
+                /* Lightbox viewer */
+                var lightbox = document.getElementById('lightbox');
+                var mediaBox = document.getElementById('lightbox-media');
+                var currentGallery = [], currentIndex = 0;
+
+                function showMedia(idx) {
+                    mediaBox.innerHTML = "";
+                    if (!currentGallery[idx]) return;
+                    var src = currentGallery[idx].href;
+                    var ext = src.split('.').pop().toLowerCase();
+                    var el;
+                    if (['mov', 'mp4', 'webm'].includes(ext)) {
+                        el = document.createElement('video');
+                        el.src = src;
+                        el.controls = true;
+                        el.autoplay = true;
+                    } else {
+                        el = document.createElement('img');
+                        el.src = src;
+                    }
+                    mediaBox.appendChild(el);
+                }
+
+                document.querySelectorAll('.gallery-item').forEach(function (item) {
+                    item.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        var galleryId = item.dataset.gallery;
+                        currentGallery = Array.from(document.querySelectorAll('[data-gallery="' + galleryId + '"]'));
+                        currentIndex = parseInt(item.dataset.index);
+                        lightbox.classList.add('active');
+                        showMedia(currentIndex);
+                    });
+                });
+
+                document.querySelector('.lightbox .close').onclick = function () {
+                    lightbox.classList.remove('active');
+                    mediaBox.innerHTML = '';
+                };
+                document.querySelector('.lightbox .next').onclick = function () {
+                    currentIndex = (currentIndex + 1) % currentGallery.length;
+                    showMedia(currentIndex);
+                };
+                document.querySelector('.lightbox .prev').onclick = function () {
+                    currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
+                    showMedia(currentIndex);
+                };
+
+                document.addEventListener('keydown', function (e) {
+                    if (!lightbox.classList.contains('active')) return;
+                    if (e.key === 'ArrowRight') document.querySelector('.lightbox .next').click();
+                    if (e.key === 'ArrowLeft') document.querySelector('.lightbox .prev').click();
+                    if (e.key === 'Escape') document.querySelector('.lightbox .close').click();
+                });
+
+            } catch (err) {
+                console.error('renderTravel error:', err);
+            }
         }
+
 
         function renderOutputs() {
             try {
